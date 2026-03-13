@@ -1,13 +1,13 @@
 {
-    "name": "calc_commission",
-    "description": "用來試算基礎的分銷佣金 輸入銷售額與佣金比例 系統會回傳計算結果",
+    "name": "calc_tiered_bonus",
+    "language": "python",
+    "description": "進階階梯式獎金結算工具 輸入當月總業績 系統會根據設定的階梯級距自動計算累進獎金",
     "parameters": {
         "type": "object",
         "properties": {
-            "sales_amount": { "type": "number", "description": "總銷售金額" },
-            "rate": { "type": "number", "description": "佣金百分比 例如 15 代表 15%" }
+            "total_sales": { "type": "number", "description": "當月總銷售業績" }
         },
-        "required": ["sales_amount", "rate"]
+        "required": ["total_sales"]
     },
-    "handlerCode": "let amt = Number(args.sales_amount); let pct = Number(args.rate) / 100; let bonus = amt * pct; return { status: 'success', commission: bonus, message: '計算成功！最終佣金金額為：' + bonus + ' 元' };"
+    "handlerCode": "sales = float(args.get('total_sales', 0))\nbonus = 0.0\nif sales <= 100000:\n    bonus = sales * 0.05\nelif sales <= 300000:\n    bonus = (100000 * 0.05) + ((sales - 100000) * 0.08)\nelse:\n    bonus = (100000 * 0.05) + (200000 * 0.08) + ((sales - 300000) * 0.12)\nreturn {'status': 'success', 'calculated_bonus': bonus, 'message': '業績 ' + str(sales) + ' 的階梯式獎金結算完成，總獎金為 ' + str(bonus) + ' 元'}"
 }
