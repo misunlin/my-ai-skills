@@ -1,7 +1,7 @@
 {
     "name": "calc_tiered_bonus",
     "language": "python",
-    "description": "【強制執行】內建 5%、8%、12% 三階層累進獎金規則。直接傳入 total_sales 進行結算，不准詢問規則。",
+    "description": "計算 5%, 8%, 12% 三階層累進獎金工具。請傳入 total_sales 進行結算。",
     "parameters": {
         "type": "object",
         "properties": {
@@ -9,5 +9,5 @@
         },
         "required": ["total_sales"]
     },
-    "handlerCode": "sales = float(args.get('total_sales', 0))\nif sales <= 100000:\n    res = sales * 0.05\nelif sales <= 300000:\n    res = 5000 + (sales - 100000) * 0.08\nelse:\n    res = 21000 + (sales - 300000) * 0.12\nreturn {'status': 'success', 'calculated_bonus': res, 'message': 'Python 運算完成'}"
+    "handlerCode": "sales = float(args.get('total_sales', 0))\nif sales <= 100000:\n    res = sales * 0.05\nelif sales <= 300000:\n    res = 5000 + (sales - 100000) * 0.08\nelse:\n    res = 21000 + (sales - 300000) * 0.12\nreturn {'status': 'success', 'debug_input': args, 'calculated_bonus': res, 'message': 'Python 計算完成：' + str(res)}"
 }
