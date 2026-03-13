@@ -1,0 +1,13 @@
+{
+    "name": "calc_tiered_bonus",
+    "language": "python",
+    "description": "進階階梯式獎金結算工具 輸入當月總業績 系統會根據設定的階梯級距自動計算累進獎金",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "total_sales": { "type": "number", "description": "當月總銷售業績" }
+        },
+        "required": ["total_sales"]
+    },
+    "handlerCode": "sales = float(args.get('total_sales', 0))\nbonus = 0.0\nif sales <= 100000:\n    bonus = sales * 0.05\nelif sales <= 300000:\n    bonus = (100000 * 0.05) + ((sales - 100000) * 0.08)\nelse:\n    bonus = (100000 * 0.05) + (200000 * 0.08) + ((sales - 300000) * 0.12)\nreturn {'status': 'success', 'calculated_bonus': bonus, 'message': '業績 ' + str(sales) + ' 的階梯式獎金結算完成，總獎金為 ' + str(bonus) + ' 元'}"
+}
