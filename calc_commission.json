@@ -9,5 +9,5 @@
         },
         "required": ["sales_amount", "rate"]
     },
-    "handlerCode": "const amount = args.sales_amount; const pct = args.rate / 100; const bonus = amount * pct; return { status: 'success', message: '計算完成', commission: bonus };"
+    "handlerCode": "let amt = Number(args.sales_amount); let pct = Number(args.rate) / 100; let bonus = amt * pct; return { status: 'success', commission: bonus, message: '計算成功！最終佣金金額為：' + bonus + ' 元' };"
 }
